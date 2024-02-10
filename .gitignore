@@ -1,0 +1,5 @@
+obj/
+
+# Ignore all .exe and .dll files
+*.exe
+*.dll
