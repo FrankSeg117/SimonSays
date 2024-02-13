@@ -163,9 +163,12 @@ void ofApp::generateSequence(){
 		Sequence.push_back(RED);
 	}
 	else if(random == 1){
-		Sequence.push_back(RED);
+		Sequence.push_back(BLUE);
 	}
-	else if(random = 4){
+	else if(random == 3){
+		Sequence.push_back(GREEN);
+	}	
+	else if(random == 4){
 		Sequence.push_back(YELLOW);
 	}
 
