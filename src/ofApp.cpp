@@ -156,7 +156,7 @@ void ofApp::GameReset(){
 void ofApp::generateSequence(){
 
 	//This function will generate a random number between 0 and 3
-	int random = ofRandom(4);
+	int random = ofRandom(5);
 	
 	//Depending on the random number, we will add a button to the sequence
 	if(random == 0){
