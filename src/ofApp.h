@@ -9,8 +9,12 @@ class ofApp : public ofBaseApp{
 	enum GameState{
 		StartUp,
 		PlayingSequence,
+		GameModeSelection,
 		PlayerInput,
-		GameOver
+		RecnPlaymode,
+		Recording,
+		Playback,
+		GameOver,
 	};
 
 	public:
@@ -60,6 +64,11 @@ class ofApp : public ofBaseApp{
 		ofImage logoLight;
 		ofImage startUpScreen;
 		ofImage gameOverScreen;
+		
+		//
+		ofImage selectGamemodetext;
+		ofImage originalgmtxt;
+		ofImage recordgmtxt;
 
 		//Few variables we'll need
         ofSoundPlayer backgroundMusic;

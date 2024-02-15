@@ -20,6 +20,10 @@ void ofApp::setup(){
 	logoLight.load("images/LogoLight.png");
 	startUpScreen.load("images/StartScreen.png");
 	gameOverScreen.load("images/GameOverScreen.png");
+	
+	selectGamemodetext.load("images/Selectgamemode.png");
+	originalgmtxt.load("images/Originalbutton.png");
+	recordgmtxt.load("images/Recordbutton.png");
 
     //Load Music
 	backgroundMusic.load("sounds/BackgroundMusic.mp3");
@@ -31,7 +35,18 @@ void ofApp::setup(){
 }
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	//If player is selecting gamemode, we tick buttons expecting input
+	if(gameState == GameModeSelection){
+		RedButton->tick();
+		GreenButton->tick();		
+	}
+	//New game mod for future recording and playback
+	if(gameState == RecnPlaymode) {
+		RedButton->tick();
+		BlueButton->tick();
+		YellowButton->tick();
+		GreenButton->tick();		
+	}
 	//We will tick the buttons, aka constantly update them
 	//while expecting input from the user to see if anything changed
 	if(gameState == PlayerInput){
@@ -137,6 +152,11 @@ void ofApp::draw(){
 	else if(!idle && gameState == StartUp){
 		startUpScreen.draw(20,0,1024,768);
 	}
+	if (gameState == GameModeSelection){
+		selectGamemodetext.draw(0,-320,1024,768);
+		originalgmtxt.draw(-125,-120,1024,768);
+		recordgmtxt.draw(125,-120,1024,768);
+	}
 }
 //--------------------------------------------------------------
 void ofApp::GameReset(){
@@ -148,7 +168,16 @@ void ofApp::GameReset(){
 	Sequence.clear();
 	generateSequence();
 	userIndex = 0;
-	gameState = PlayingSequence;
+	if (gameState == GameOver){
+		gameState = PlayingSequence;
+	}
+	else if (gameState == GameModeSelection) {
+		gameState = PlayingSequence; //if player selected original game mode from selection screen, game will reset
+	}
+
+	else {
+		gameState = GameModeSelection;
+	}
 	showingSequenceDuration = 0;
 }
 
@@ -251,6 +280,56 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+	// If we are not in idle and want to select a new gamemode
+	//We select one of the buttons the give a new gamemode
+	if ((!idle && gameState == GameModeSelection)) {
+		//We mark the pressed button as "pressed"
+		RedButton->setPressed(x,y);
+		GreenButton->setPressed(x,y);		
+
+		//We check which button got pressed
+		if(RedButton->wasPressed()){
+			color = RED;
+		}
+		else if(GreenButton->wasPressed()){
+			color = GREEN;
+		}
+		//Light up the pressed button for a few ticks
+		lightOn(color);
+		lightDisplayDuration = 60;
+		if (color == GREEN) {
+			GameReset();
+		}
+		if (color == RED){
+			gameState = RecnPlaymode;
+		}
+	}
+		//gamemode for future recording and playback
+		if(!idle && gameState == RecnPlaymode){
+		//We mark the pressed button as "pressed"
+		RedButton->setPressed(x,y);
+		BlueButton->setPressed(x,y);
+		YellowButton->setPressed(x,y);
+		GreenButton->setPressed(x,y);
+
+		//We check which button got pressed
+		if(RedButton->wasPressed()){
+			color = RED;
+		}
+		else if(BlueButton->wasPressed()){
+			color = BLUE;
+		}
+		else if(YellowButton->wasPressed()){
+			color = YELLOW;
+		}
+		else if(GreenButton->wasPressed()){
+			color = GREEN;
+		}
+		//Light up the pressed button for a few ticks
+		lightOn(color);
+		lightDisplayDuration = 15;
+		}
+
 	//If we're not in Idle and the gameState equals PlayerInput,
 	//We will pay attention to the mousePresses from the user
 	if(!idle && gameState == PlayerInput){
