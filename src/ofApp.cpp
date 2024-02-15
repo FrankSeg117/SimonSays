@@ -172,7 +172,7 @@ void ofApp::GameReset(){
 		gameState = PlayingSequence;
 	}
 	else if (gameState == GameModeSelection) {
-		gameState = PlayingSequence; //if player selected original game mode from selection screen, game will reset
+		gameState = PlayingSequence; //if player selected original game mode from selection screen, normal game will start
 	}
 
 	else {
@@ -184,7 +184,7 @@ void ofApp::GameReset(){
 //--------------------------------------------------------------
 void ofApp::generateSequence(){
 
-	//This function will generate a random number between 0 and 3
+	//This function will generate a random number between 0 and 5
 	int random = ofRandom(5);
 	
 	//Depending on the random number, we will add a button to the sequence
@@ -258,9 +258,17 @@ void ofApp::lightOff(Buttons color){
 void ofApp::keyPressed(int key){
 	//As long as we're not in Idle OR the gameState is GameOver;
 	//AND we press the SPACEBAR, we will reset the game
-	if((!idle || gameState == GameOver) && tolower(key) == ' '){
+	if((!idle && gameState == GameOver) && tolower(key) == ' '){
 		GameReset();
 	}
+
+	if((!idle && gameState == StartUp) && tolower(key) == ' '){
+		GameReset();
+	}
+	//if user presses Backspace, user will be sent to gamemode selection screen
+	if((!idle) && tolower(key) == '\b'){
+		gameState = GameModeSelection;
+	}	
 }
 
 //--------------------------------------------------------------
