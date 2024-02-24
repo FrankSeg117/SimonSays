@@ -71,7 +71,7 @@ class ofApp : public ofBaseApp{
 		ofImage originalgmtxt;
 		ofImage recordgmtxt;
 		ofImage recordingIndicator;
-
+		ofImage playingIndicator;
 
 		//Few variables we'll need
         ofSoundPlayer backgroundMusic;

@@ -26,6 +26,7 @@ void ofApp::setup(){
 	originalgmtxt.load("images/Originalbutton.png");
 	recordgmtxt.load("images/Recordbutton.png");
 	recordingIndicator.load("images/RecordingIndicator.png");
+	playingIndicator.load("images/PlayingIndicator.png");
 
     //Load Music
 	backgroundMusic.load("sounds/BackgroundMusic.mp3");
@@ -163,10 +164,13 @@ void ofApp::draw(){
 	if (gameState == GameModeSelection){
 		selectGamemodetext.draw(0,-320,1024,768);
 		originalgmtxt.draw(-125,-120,1024,768);
-		recordgmtxt.draw(125,-120,1024,768);
+		recordgmtxt.draw(140,-120,1024,768);
 	}
 	if(gameState == Recording){
 		recordingIndicator.draw(-288,-300,1024,768);
+	}
+	if(gameState == PlayRecording){
+		playingIndicator.draw(-288,-300,1024,768);
 	}
 }
 //--------------------------------------------------------------
@@ -276,18 +280,31 @@ void ofApp::keyPressed(int key){
 	if((!idle && gameState == StartUp) && tolower(key) == ' '){
 		GameReset();
 	}
-	
+
 	//if user presses Backspace, user will be sent to gamemode selection screen
 	if((!idle) && tolower(key) == '\b'){
 		gameState = GameModeSelection;
 	}	
-	if((!idle && gameState == RecnPlaymode) && tolower(key) == 'r'){
+	if((!idle && gameState == RecnPlaymode) && tolower(key) == 'r'){ //While in Recnplay, if r is pressed it will start recording mode
 			gameState = Recording;
 			Paused = true;
-			Pausetimer = 30;
+			Pausetimer = 30; //timer to stop the program from taking r input so it can change into recording mode (if deleted it will be stuck on recnplay mode)
+
+			lightOff(RED);
+			lightOff(BLUE);
+			lightOff(YELLOW);
+			lightOff(GREEN);
+
+			Recorded.clear();
+			userIndex = 0;
+			showingSequenceDuration = 0;
+
 	}
 	if(!Paused && gameState == Recording && tolower(key) == 'r'){
 			gameState = RecnPlaymode;
+	}
+	if(!Paused && gameState == RecnPlaymode && tolower(key) == 'p'){
+			gameState = PlayRecording;
 	}
 }
 
@@ -352,6 +369,10 @@ void ofApp::mousePressed(int x, int y, int button){
 		else if(GreenButton->wasPressed()){
 			color = GREEN;
 		}
+
+		//Add pushed button to Recorded sequence
+		Recorded.push_back(color);
+
 		//Light up the pressed button for a few ticks
 		lightOn(color);
 		lightDisplayDuration = 15;
