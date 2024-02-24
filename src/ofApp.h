@@ -88,4 +88,6 @@ class ofApp : public ofBaseApp{
 		//Added Variables
 		int Pausetimer = -1;
 		bool Paused = true;
+		int Playbackpos = 1;
+		int recordedLimit = 1;
 };

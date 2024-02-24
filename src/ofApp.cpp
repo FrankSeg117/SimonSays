@@ -100,7 +100,28 @@ void ofApp::draw(){
 	YellowButton->render();
 	GreenButton->render();
 
+	if(gameState == PlayRecording){
+
+		showingSequenceDuration++;
+		if(showingSequenceDuration == 120){
+			color = Recorded[Playbackpos];
+			lightOn(color);
+			lightDisplayDuration = 30;
+		}
 	
+		if(showingSequenceDuration == 140){
+			lightOff(color);
+			showingSequenceDuration = 60;
+			Playbackpos++;
+		}
+		if(Playbackpos == recordedLimit){
+			lightOff(color);
+			Playbackpos = 0;
+			gameState = RecnPlaymode;
+		}
+	}
+
+
 	//This whole if statement will take care of showing
 	//the sequence to the user before accepting any input
 	if(gameState == PlayingSequence){
@@ -296,15 +317,16 @@ void ofApp::keyPressed(int key){
 			lightOff(GREEN);
 
 			Recorded.clear();
-			userIndex = 0;
-			showingSequenceDuration = 0;
 
 	}
 	if(!Paused && gameState == Recording && tolower(key) == 'r'){
 			gameState = RecnPlaymode;
 	}
 	if(!Paused && gameState == RecnPlaymode && tolower(key) == 'p'){
+			Playbackpos = 0;
+			showingSequenceDuration = 0;
 			gameState = PlayRecording;
+
 	}
 }
 
@@ -372,6 +394,7 @@ void ofApp::mousePressed(int x, int y, int button){
 
 		//Add pushed button to Recorded sequence
 		Recorded.push_back(color);
+		recordedLimit = Recorded.size();
 
 		//Light up the pressed button for a few ticks
 		lightOn(color);
