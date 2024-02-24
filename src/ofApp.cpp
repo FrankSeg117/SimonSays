@@ -79,6 +79,12 @@ void ofApp::update(){
 			lightOff(GREEN);
 		}
 	}
+	if (Pausetimer > 0){
+		Pausetimer--;
+		if (Pausetimer <= 0 ){
+			Paused = false;
+		}
+	}
 }
 
 //--------------------------------------------------------------
@@ -270,12 +276,18 @@ void ofApp::keyPressed(int key){
 	if((!idle && gameState == StartUp) && tolower(key) == ' '){
 		GameReset();
 	}
+	
 	//if user presses Backspace, user will be sent to gamemode selection screen
 	if((!idle) && tolower(key) == '\b'){
 		gameState = GameModeSelection;
 	}	
-	if(!idle && tolower(key) == 'r'){
+	if((!idle && gameState == RecnPlaymode) && tolower(key) == 'r'){
 			gameState = Recording;
+			Paused = true;
+			Pausetimer = 30;
+	}
+	if(!Paused && gameState == Recording && tolower(key) == 'r'){
+			gameState = RecnPlaymode;
 	}
 }
 

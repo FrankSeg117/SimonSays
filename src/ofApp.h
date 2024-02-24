@@ -46,7 +46,7 @@ class ofApp : public ofBaseApp{
 		//This vector will basically act as list of button enums
 		//for us to be able to store the sequences
 		vector<Buttons> Sequence;
-		vector<Buttons> Playing;
+		vector<Buttons> Recorded;
 
 		//Let's declare the buttons we will use
 		Button *RedButton;
@@ -85,4 +85,7 @@ class ofApp : public ofBaseApp{
 		int logoCounter = 0;
 		bool idle = true;
 		
+		//Added Variables
+		int Pausetimer = -1;
+		bool Paused = true;
 };
