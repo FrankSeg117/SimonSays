@@ -21,9 +21,11 @@ void ofApp::setup(){
 	startUpScreen.load("images/StartScreen.png");
 	gameOverScreen.load("images/GameOverScreen.png");
 	
+	//Additional images
 	selectGamemodetext.load("images/Selectgamemode.png");
 	originalgmtxt.load("images/Originalbutton.png");
 	recordgmtxt.load("images/Recordbutton.png");
+	recordingIndicator.load("images/RecordingIndicator.png");
 
     //Load Music
 	backgroundMusic.load("sounds/BackgroundMusic.mp3");
@@ -41,7 +43,7 @@ void ofApp::update(){
 		GreenButton->tick();		
 	}
 	//New game mod for future recording and playback
-	if(gameState == RecnPlaymode) {
+	if(gameState == RecnPlaymode || gameState == Recording) {
 		RedButton->tick();
 		BlueButton->tick();
 		YellowButton->tick();
@@ -157,6 +159,9 @@ void ofApp::draw(){
 		originalgmtxt.draw(-125,-120,1024,768);
 		recordgmtxt.draw(125,-120,1024,768);
 	}
+	if(gameState == Recording){
+		recordingIndicator.draw(-288,-300,1024,768);
+	}
 }
 //--------------------------------------------------------------
 void ofApp::GameReset(){
@@ -269,6 +274,9 @@ void ofApp::keyPressed(int key){
 	if((!idle) && tolower(key) == '\b'){
 		gameState = GameModeSelection;
 	}	
+	if(!idle && tolower(key) == 'r'){
+			gameState = Recording;
+	}
 }
 
 //--------------------------------------------------------------
@@ -312,6 +320,33 @@ void ofApp::mousePressed(int x, int y, int button){
 			gameState = RecnPlaymode;
 		}
 	}
+		if(!idle && gameState == Recording){
+		//We mark the pressed button as "pressed"
+		RedButton->setPressed(x,y);
+		BlueButton->setPressed(x,y);
+		YellowButton->setPressed(x,y);
+		GreenButton->setPressed(x,y);
+
+		//We check which button got pressed
+		if(RedButton->wasPressed()){
+			color = RED;
+		}
+		else if(BlueButton->wasPressed()){
+			color = BLUE;
+		}
+		else if(YellowButton->wasPressed()){
+			color = YELLOW;
+		}
+		else if(GreenButton->wasPressed()){
+			color = GREEN;
+		}
+		//Light up the pressed button for a few ticks
+		lightOn(color);
+		lightDisplayDuration = 15;
+		}
+
+
+
 		//gamemode for future recording and playback
 		if(!idle && gameState == RecnPlaymode){
 		//We mark the pressed button as "pressed"

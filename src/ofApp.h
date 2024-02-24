@@ -13,7 +13,7 @@ class ofApp : public ofBaseApp{
 		PlayerInput,
 		RecnPlaymode,
 		Recording,
-		Playback,
+		PlayRecording,
 		GameOver,
 	};
 
@@ -46,6 +46,7 @@ class ofApp : public ofBaseApp{
 		//This vector will basically act as list of button enums
 		//for us to be able to store the sequences
 		vector<Buttons> Sequence;
+		vector<Buttons> Playing;
 
 		//Let's declare the buttons we will use
 		Button *RedButton;
@@ -65,10 +66,12 @@ class ofApp : public ofBaseApp{
 		ofImage startUpScreen;
 		ofImage gameOverScreen;
 		
-		//
+		//Additional images
 		ofImage selectGamemodetext;
 		ofImage originalgmtxt;
 		ofImage recordgmtxt;
+		ofImage recordingIndicator;
+
 
 		//Few variables we'll need
         ofSoundPlayer backgroundMusic;
