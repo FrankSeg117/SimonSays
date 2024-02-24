@@ -220,8 +220,8 @@ void ofApp::GameReset(){
 //--------------------------------------------------------------
 void ofApp::generateSequence(){
 
-	//This function will generate a random number between 0 and 5
-	int random = ofRandom(5);
+	//This function will generate a random number between 0 and 3 (0,1,2,3)
+	int random = ofRandom(4);
 	
 	//Depending on the random number, we will add a button to the sequence
 	if(random == 0){
