@@ -27,6 +27,7 @@ void ofApp::setup(){
 	recordgmtxt.load("images/Recordbutton.png");
 	recordingIndicator.load("images/RecordingIndicator.png");
 	playingIndicator.load("images/PlayingIndicator.png");
+	multiplayergmtxt.load("images/Multiplayerbutton.png");
 
     //Load Music
 	backgroundMusic.load("sounds/BackgroundMusic.mp3");
@@ -186,6 +187,7 @@ void ofApp::draw(){
 		selectGamemodetext.draw(0,-320,1024,768);
 		originalgmtxt.draw(-125,-120,1024,768);
 		recordgmtxt.draw(140,-120,1024,768);
+		multiplayergmtxt.draw(-95,120,1024,768);
 	}
 	if(gameState == Recording){
 		recordingIndicator.draw(-288,-300,1024,768);
@@ -352,7 +354,8 @@ void ofApp::mousePressed(int x, int y, int button){
 	if ((!idle && gameState == GameModeSelection)) {
 		//We mark the pressed button as "pressed"
 		RedButton->setPressed(x,y);
-		GreenButton->setPressed(x,y);		
+		GreenButton->setPressed(x,y);
+		YellowButton->setPressed(x,y);		
 
 		//We check which button got pressed
 		if(RedButton->wasPressed()){
@@ -360,6 +363,9 @@ void ofApp::mousePressed(int x, int y, int button){
 		}
 		else if(GreenButton->wasPressed()){
 			color = GREEN;
+		}
+		else if (YellowButton->wasPressed()){
+			color = YELLOW;
 		}
 		//Light up the pressed button for a few ticks
 		lightOn(color);
@@ -369,6 +375,9 @@ void ofApp::mousePressed(int x, int y, int button){
 		}
 		if (color == RED){
 			gameState = RecnPlaymode;
+		}
+		if (color == YELLOW){
+			gameState = Multiplayer;
 		}
 	}
 		if(!idle && gameState == Recording){

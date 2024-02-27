@@ -15,6 +15,7 @@ class ofApp : public ofBaseApp{
 		Recording,
 		PlayRecording,
 		GameOver,
+		Multiplayer,
 	};
 
 	public:
@@ -72,6 +73,7 @@ class ofApp : public ofBaseApp{
 		ofImage recordgmtxt;
 		ofImage recordingIndicator;
 		ofImage playingIndicator;
+		ofImage multiplayergmtxt;
 
 		//Few variables we'll need
         ofSoundPlayer backgroundMusic;
