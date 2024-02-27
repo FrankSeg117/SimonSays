@@ -42,7 +42,8 @@ void ofApp::update(){
 	//If player is selecting gamemode, we tick buttons expecting input
 	if(gameState == GameModeSelection){
 		RedButton->tick();
-		GreenButton->tick();		
+		GreenButton->tick();
+		YellowButton->tick();		
 	}
 	//New game mod for future recording and playback
 	if(gameState == RecnPlaymode || gameState == Recording) {
