@@ -86,10 +86,6 @@ void ofApp::update(){
 			multiplayerGenerateSequence();
 			userIndex = 0;
 			showingSequenceDuration = 0;
-
-			Paused = true;
-			Pausetimer = 120;
-
 			gameState = P2Sequence;
 		}
 		else if (gameState == P2Input && userIndex == p2sequencelimit){
@@ -98,8 +94,6 @@ void ofApp::update(){
 			userIndex = 0;
 			showingSequenceDuration = 0;
 
-			Paused = true;
-			Pausetimer = 120;
 		if (!lastTurn){
 			gameState = P1Sequence;
 		}
@@ -260,6 +254,13 @@ void ofApp::draw(){
 		recordgmtxt.draw(140,-120,1024,768);
 		multiplayergmtxt.draw(-95,120,1024,768);
 	}
+
+	//Indicator of original gamemode
+	if (gameState == PlayingSequence || gameState == PlayerInput){
+		myfont.drawString("Original" , 30 , 725);
+
+	}
+	//indicator of recording modes
 	if(gameState == Recording){
 		recordingIndicator.draw(-288,-300,1024,768);
 		myfont.drawString("Rec&Play" , 30 , 725);
@@ -274,13 +275,13 @@ void ofApp::draw(){
 		myfont.drawString("Rec&Play" , 30 , 725);
 	}
 
-	//Draw string text for multiplayer
+	//Indicator and strings texts for multiplayer
 	if (gameState == P1Sequence || gameState == P1Input || gameState == P2Sequence || gameState == P2Input){
 		myfont.drawString("Player 1 score: " + ofToString(player1Score), 60, 100);
 		myfont.drawString("Player 2 score: " + ofToString(player2Score), 60, 150);
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
-		ofSetColor(0, 0, 128);
+		ofSetColor(0, 0, 128);	//Background behind lpayer indicator to make it easier to identify who's turn it is
 		ofDrawRectangle(740, 55, myfont.stringWidth("Player 1's turn") + 20, myfont.stringHeight("Player 1's turn") + 20);
 		ofSetColor(255, 255, 255);		
 		myfont.drawString("Player 1's turn", 750, 100);
@@ -288,14 +289,16 @@ void ofApp::draw(){
 
 	}
 	if (gameState == P2Input || gameState == P2Sequence){
-		ofSetColor(139, 0, 0);
+		ofSetColor(139, 0, 0);	//Background behind lpayer indicator to make it easier to identify who's turn it is
 		ofDrawRectangle(740, 55, myfont.stringWidth("Player 2's turn") + 20, myfont.stringHeight("Player 2's turn") + 20);
 		ofSetColor(255, 255, 255);		
 		myfont.drawString("Player 2's turn", 750, 100);
 		myfont.drawString("Multiplayer" , 30 , 725);
 	}
 
-	if (gameState == MutliplayerGameOver) {
+	//Here we check which player had a bigger score when the game was over and depending on the score
+	//we say which player won or if it was a tie
+	if (gameState == MutliplayerGameOver) {	
 		myfont.drawString("Player 1 score: " + ofToString(player1Score), 30, 40);
 		myfont.drawString("Player 2 score: " + ofToString(player2Score), 30, 90);
 		if (player1Score > player2Score){
@@ -305,7 +308,7 @@ void ofApp::draw(){
 			mybigfont.drawString("Player 2 Wins",(ofGetWindowWidth()/2)-75, (ofGetWindowHeight()/2)-300);
 		}	
 		if(player1Score == player2Score) {
-			mybigfont.drawString("It's a Tie!",(ofGetWindowWidth()/2)-80, (ofGetWindowHeight()/2)-150);			
+			mybigfont.drawString("It's a Tie!",(ofGetWindowWidth()/2)-80, (ofGetWindowHeight()/2)-300);			
 		}	
 	}
 }
@@ -721,8 +724,6 @@ void ofApp::mousePressed(int x, int y, int button){
 			userIndex = 0;
 			showingSequenceDuration = 0;
 
-			Paused = true;
-			Pausetimer = 240;
 			lastTurn = true;		
 
 			gameState = P2Sequence;
