@@ -262,9 +262,16 @@ void ofApp::draw(){
 	}
 	if(gameState == Recording){
 		recordingIndicator.draw(-288,-300,1024,768);
+		myfont.drawString("Rec'N Play" , 30 , 725);
+
 	}
 	if(gameState == PlayRecording){
 		playingIndicator.draw(-288,-300,1024,768);
+		myfont.drawString("Rec'N Play" , 30 , 725);
+		
+	}
+	if( gameState == RecnPlaymode){
+		myfont.drawString("Rec'N Play" , 30 , 725);
 	}
 
 	//Draw string text for multiplayer
@@ -274,12 +281,12 @@ void ofApp::draw(){
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
 		myfont.drawString("Player 1's turn", 750, 100);
-		myfont.drawString("Multiplayer Mode" , 30 , 725);
+		myfont.drawString("Multiplayer" , 30 , 725);
 
 	}
 	if (gameState == P2Input || gameState == P2Sequence){
 		myfont.drawString("Player 2's turn", 750, 100);
-		myfont.drawString("Multiplayer Mode" , 30 , 725);
+		myfont.drawString("Multiplayer" , 30 , 725);
 
 	}
 	if (gameState == MutliplayerGameOver) {
