@@ -266,12 +266,13 @@ void ofApp::draw(){
 	if (gameState == P1Sequence || gameState == P1Input || gameState == P2Sequence || gameState == P2Input){
 		myfont.drawString("Player 1 score: " + ofToString(player1Score), 60, 100);
 		myfont.drawString("Player 2 score: " + ofToString(player2Score), 60, 150);
+		myfont.drawString("Multiplayer Mode" , 30 , 725);
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
-		myfont.drawString("Player 1's turn",ofGetWindowWidth()/2,100);
+		myfont.drawString("Player 1's turn", 750, 100);
 	}
 	if (gameState == P2Input || gameState == P2Sequence){
-		myfont.drawString("Player 2's turn",ofGetWindowWidth()/2,100);
+		myfont.drawString("Player 2's turn", 750, 100);
 	}	
 }
 //--------------------------------------------------------------
