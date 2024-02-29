@@ -35,7 +35,7 @@ void ofApp::setup(){
 	backgroundMusic.play();
 
 	//Text string for multiplayer
-	myfont.load("Striker.ttf", 32);
+	myfont.load("Scary.ttf", 32);
 	// text = "Points:";
 
 	//Initial State
@@ -58,7 +58,7 @@ void ofApp::update(){
 	}
 	//We will tick the buttons, aka constantly update them
 	//while expecting input from the user to see if anything changed
-	if(gameState == PlayerInput || gameState == Multiplayer){
+	if(gameState == PlayerInput){
 		RedButton->tick();
 		BlueButton->tick();
 		YellowButton->tick();
@@ -73,6 +73,25 @@ void ofApp::update(){
 			showingSequenceDuration = 0;
 			gameState = PlayingSequence;
 		}
+	}
+	else if (gameState == P1Input || gameState == P2Input){
+		RedButton->tick();
+		BlueButton->tick();
+		YellowButton->tick();
+		GreenButton->tick();
+
+		if (gameState == P1Input && userIndex == p1sequencelimit){
+			currentplayer = 2;
+			multiplayerGenerateSequence();
+			showingSequenceDuration = 0;
+			gameState = P2Sequence;
+		}
+		else if (gameState == P2Input && userIndex == p2sequencelimit){
+			currentplayer = 1;
+			multiplayerGenerateSequence();
+			showingSequenceDuration = 0;
+			gameState = P1Sequence;
+	}
 	}
 
 	//This will take care of turning on the lights after a few
@@ -149,6 +168,30 @@ void ofApp::draw(){
 			gameState = PlayerInput;
 		}
 	}
+	else if (gameState == P1Sequence || gameState == P2Sequence){
+		showingSequenceDuration++;
+		if(showingSequenceDuration == 120){
+			if( gameState == P1Sequence){
+			color = Player1Sequence[userIndex];
+			}
+			else if (gameState == P2Sequence){
+			color = Player2Sequence[userIndex];
+			}
+			lightOn(color);
+			lightDisplayDuration = 30;
+		}
+	
+		if(showingSequenceDuration == 140){
+			lightOff(color);
+			showingSequenceDuration = 60;
+			userIndex++;
+		}
+		if(userIndex == sequenceLimit){
+			lightOff(color);
+			userIndex = 0;
+			gameState = P1Input;
+		}
+	}
 
 	
 
@@ -180,7 +223,7 @@ void ofApp::draw(){
 	}
 
 	//Draw the game over screen
-	if(gameState == GameOver){
+	if(gameState == GameOver || gameState == MutliplayerGameOver){
 		gameOverScreen.draw(0,0,1024,768);
 	}
 
@@ -202,11 +245,30 @@ void ofApp::draw(){
 	}
 
 	//Draw string text for multiplayer
-	if (gameState == Multiplayer){
-		myfont.drawString("Points: 10 ",100,100);
+	if (gameState == P1Sequence || gameState == P1Input || gameState == P2Sequence || gameState == P2Input){
+		myfont.drawString("Points: ",100,100);
 	}
 }
 //--------------------------------------------------------------
+void ofApp::MultiplayerReset(){
+
+	lightOff(RED);
+	lightOff(BLUE);
+	lightOff(YELLOW);
+	lightOff(GREEN);
+
+	Player1Sequence.clear();
+	Player2Sequence.clear();
+
+	currentplayer = 1;
+
+	multiplayerGenerateSequence();
+
+	userIndex = 0;
+	gameState = P1Sequence;
+	showingSequenceDuration = 0;
+}
+
 void ofApp::GameReset(){
 	//This function will reset the game to its initial state
 	lightOff(RED);
@@ -230,6 +292,49 @@ void ofApp::GameReset(){
 }
 
 //--------------------------------------------------------------
+void ofApp::multiplayerGenerateSequence(){
+
+	//This function will generate a random number between 0 and 3 (0,1,2,3)
+	int random = ofRandom(4);
+	
+	//Depending on the random number, we will add a button to the sequence
+	if(random == 0){
+		if (currentplayer == 1 ){
+		Player1Sequence.push_back(RED);
+		}
+		if (currentplayer == 2 ){
+		Player2Sequence.push_back(RED);
+		}
+	}
+	else if(random == 1){
+		if (currentplayer == 1 ){
+		Player1Sequence.push_back(BLUE);
+		}
+		if (currentplayer == 2 ){
+		Player2Sequence.push_back(BLUE);
+		}
+	}
+	else if(random == 3){
+		if (currentplayer == 1 ){
+		Player1Sequence.push_back(GREEN);
+		}
+		if (currentplayer == 2 ){
+		Player2Sequence.push_back(GREEN);
+		}
+	}	
+	else if(random == 4){
+		if (currentplayer == 1 ){
+		Player1Sequence.push_back(YELLOW);
+		}
+		if (currentplayer == 2 ){
+		Player2Sequence.push_back(YELLOW);
+		}
+	}
+
+	//We will adjust the sequence limits to the new size of the Sequence lists
+	p1sequencelimit = Player1Sequence.size();
+	p2sequencelimit = Player2Sequence.size();
+}
 void ofApp::generateSequence(){
 
 	//This function will generate a random number between 0 and 3 (0,1,2,3)
@@ -256,11 +361,31 @@ void ofApp::generateSequence(){
 bool ofApp::checkUserInput(Buttons input){
 	//This function will varify if the user input matches the color
 	//of the sequence at the current index
+	if (gameState == PlayerInput){
 	if(Sequence[userIndex] == input){
 		return true;
 	}
 	else{
 		return false;
+	}
+	}
+
+	//Here are verifiers for multiplayer to see if the current user input is correct
+	if (gameState == P1Input){
+		if(Player1Sequence[userIndex] == input){
+			return true;
+		}
+		else { 
+			return false;
+		}
+	}
+	if (gameState == P2Input){
+		if(Player2Sequence[userIndex] == input){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 //--------------------------------------------------------------
@@ -308,6 +433,9 @@ void ofApp::keyPressed(int key){
 	//AND we press the SPACEBAR, we will reset the game
 	if((!idle && gameState == GameOver) && tolower(key) == ' '){
 		GameReset();
+	}
+	if((!idle && gameState == MutliplayerGameOver) && tolower(key) == ' '){
+		MultiplayerReset();
 	}
 
 	if((!idle && gameState == StartUp) && tolower(key) == ' '){
@@ -387,7 +515,8 @@ void ofApp::mousePressed(int x, int y, int button){
 			gameState = RecnPlaymode;
 		}
 		if (color == YELLOW){
-			gameState = Multiplayer;
+			MultiplayerReset();
+			gameState = P1Sequence;
 		}
 	}
 		if(!idle && gameState == Recording){
@@ -481,6 +610,40 @@ void ofApp::mousePressed(int x, int y, int button){
 			//putting it in the GameOver state.
 			else{
 				gameState = GameOver;
+			}
+	}
+
+	else if (!idle && (gameState == P1Input || gameState == P2Input)){
+		//We mark the pressed button as "pressed"
+		RedButton->setPressed(x,y);
+		BlueButton->setPressed(x,y);
+		YellowButton->setPressed(x,y);
+		GreenButton->setPressed(x,y);
+
+		//We check which button got pressed
+		if(RedButton->wasPressed()){
+			color = RED;
+		}
+		else if(BlueButton->wasPressed()){
+			color = BLUE;
+		}
+		else if(YellowButton->wasPressed()){
+			color = YELLOW;
+		}
+		else if(GreenButton->wasPressed()){
+			color = GREEN;
+		}
+		//Light up the pressed button for a few ticks
+		lightOn(color);
+		lightDisplayDuration = 15;
+			//If the user input is correct, we can continue checking
+			if(checkUserInput(color)){
+				userIndex++;
+			}
+			//If not, then we will terminate the game by 
+			//putting it in the GameOver state.
+			else{
+				gameState = MutliplayerGameOver;
 			}
 	}
 }

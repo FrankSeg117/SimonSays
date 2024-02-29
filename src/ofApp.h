@@ -11,11 +11,20 @@ class ofApp : public ofBaseApp{
 		PlayingSequence,
 		GameModeSelection,
 		PlayerInput,
+		GameOver,
+
+		//Recnplay gamestates
 		RecnPlaymode,
 		Recording,
 		PlayRecording,
-		GameOver,
-		Multiplayer,
+
+		//Multiplayer gameStates
+		P1Sequence,
+		P1Input,
+		P2Sequence,
+		P2Input,
+		MutliplayerGameOver,
+
 	};
 
 	public:
@@ -42,6 +51,10 @@ class ofApp : public ofBaseApp{
 		bool checkUserInput(Buttons c);
 		void GameReset();
 		void startUpSequence(int count);
+
+		//Added Functions
+		void MultiplayerReset();
+		void multiplayerGenerateSequence();
 		
 	private:
 		//This vector will basically act as list of button enums
@@ -51,6 +64,7 @@ class ofApp : public ofBaseApp{
 		//Vector for Replaying
 		vector<Buttons> Recorded;
 
+		//Vector for multiplayer sequences
 		vector<Buttons> Player1Sequence;
 		vector<Buttons> Player2Sequence;
 
@@ -97,6 +111,12 @@ class ofApp : public ofBaseApp{
 		bool Paused = true;
 		int Playbackpos = 1;
 		int recordedLimit = 1;
+
 		string text;
 		ofTrueTypeFont myfont;
+
+		int p1sequencelimit = 1;
+		int p2sequencelimit = 1;
+
+		int currentplayer = 1;
 };
