@@ -358,36 +358,40 @@ void ofApp::generateSequence(){
 	sequenceLimit = Sequence.size();
 }
 //--------------------------------------------------------------
-bool ofApp::checkUserInput(Buttons input){
-	//This function will varify if the user input matches the color
-	//of the sequence at the current index
-	if (gameState == PlayerInput){
-	if(Sequence[userIndex] == input){
-		return true;
-	}
-	else{
-		return false;
-	}
-	}
+bool ofApp::checkUserInput(Buttons input) {
+    // This function will verify if the user input matches the color
+    // of the sequence at the current index
 
-	//Here are verifiers for multiplayer to see if the current user input is correct
-	if (gameState == P1Input){
-		if(Player1Sequence[userIndex] == input){
-			return true;
-		}
-		else { 
-			return false;
-		}
-	}
-	if (gameState == P2Input){
-		if(Player2Sequence[userIndex] == input){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+    if (gameState == PlayerInput) {
+        if (Sequence[userIndex] == input) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Here are verifiers for multiplayer to see if the current user input is correct
+    if (gameState == P1Input) {
+        if (Player1Sequence[userIndex] == input) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    if (gameState == P2Input) {
+        if (Player2Sequence[userIndex] == input) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // If none of the conditions are met, you should decide what to do.
+    // In this case, returning false might be appropriate since it's a mismatch.
+    return false;
 }
+
 //--------------------------------------------------------------
 void ofApp::lightOn(Buttons color){
 	//This function will take care of toggling the "isLightUp" variable to
