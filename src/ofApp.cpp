@@ -280,15 +280,21 @@ void ofApp::draw(){
 		myfont.drawString("Player 2 score: " + ofToString(player2Score), 60, 150);
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
+		ofSetColor(0, 0, 128);
+		ofDrawRectangle(740, 55, myfont.stringWidth("Player 1's turn") + 20, myfont.stringHeight("Player 1's turn") + 20);
+		ofSetColor(255, 255, 255);		
 		myfont.drawString("Player 1's turn", 750, 100);
 		myfont.drawString("Multiplayer" , 30 , 725);
 
 	}
 	if (gameState == P2Input || gameState == P2Sequence){
+		ofSetColor(139, 0, 0);
+		ofDrawRectangle(740, 55, myfont.stringWidth("Player 2's turn") + 20, myfont.stringHeight("Player 2's turn") + 20);
+		ofSetColor(255, 255, 255);		
 		myfont.drawString("Player 2's turn", 750, 100);
 		myfont.drawString("Multiplayer" , 30 , 725);
-
 	}
+
 	if (gameState == MutliplayerGameOver) {
 		myfont.drawString("Player 1 score: " + ofToString(player1Score), 30, 40);
 		myfont.drawString("Player 2 score: " + ofToString(player2Score), 30, 90);
