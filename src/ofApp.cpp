@@ -87,7 +87,7 @@ void ofApp::update(){
 			showingSequenceDuration = 0;
 
 			Paused = true;
-			Pausetimer = 60;
+			Pausetimer = 120;
 
 			gameState = P2Sequence;
 		}
@@ -98,7 +98,7 @@ void ofApp::update(){
 			showingSequenceDuration = 0;
 
 			Paused = true;
-			Pausetimer = 60;
+			Pausetimer = 120;
 
 			gameState = P1Sequence;
 	}
@@ -267,10 +267,10 @@ void ofApp::draw(){
 		myfont.drawString("Points: ",60,100);
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
-		myfont.drawString("Player 1 turn",ofGetWindowWidth()/2,100);
+		myfont.drawString("Player 1's turn",ofGetWindowWidth()/2,100);
 	}
 	if (gameState == P2Input || gameState == P2Sequence){
-		myfont.drawString("Player 2 turn",ofGetWindowWidth()/2,100);
+		myfont.drawString("Player 2's turn",ofGetWindowWidth()/2,100);
 	}	
 }
 //--------------------------------------------------------------
