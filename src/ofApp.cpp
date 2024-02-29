@@ -87,7 +87,7 @@ void ofApp::update(){
 			showingSequenceDuration = 0;
 
 			Paused = true;
-			Pausetimer = 120;
+			Pausetimer = 80;
 
 			gameState = P2Sequence;
 		}
@@ -98,7 +98,7 @@ void ofApp::update(){
 			showingSequenceDuration = 0;
 
 			Paused = true;
-			Pausetimer = 120;
+			Pausetimer = 80;
 
 			gameState = P1Sequence;
 	}
@@ -264,9 +264,14 @@ void ofApp::draw(){
 
 	//Draw string text for multiplayer
 	if (gameState == P1Sequence || gameState == P1Input || gameState == P2Sequence || gameState == P2Input){
+<<<<<<< HEAD
 		myfont.drawString("Player 1 score: " + ofToString(player1Score), 60, 100);
 		myfont.drawString("Player 2 score: " + ofToString(player2Score), 60, 150);
 		myfont.drawString("Multiplayer Mode" , 30 , 725);
+=======
+		myfont.drawString("Player 1's score: " + ofToString(player1Score), 60, 100);
+		myfont.drawString("Player 2's score: " + ofToString(player2Score), 60, 150);
+>>>>>>> 08305f2968b6d045f41af1f81b79fd3281e12a2e
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
 		myfont.drawString("Player 1's turn", 750, 100);
