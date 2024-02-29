@@ -36,6 +36,7 @@ void ofApp::setup(){
 
 	//Text string for multiplayer
 	myfont.load("AovelSansRounded-rdDL.ttf", 32);
+	mybigfont.load("AovelSansRounded-rdDL.ttf", 60);
 	// text = "Points:";
 
 	//Initial State
@@ -99,8 +100,12 @@ void ofApp::update(){
 
 			Paused = true;
 			Pausetimer = 120;
-
+		if (!lastTurn){
 			gameState = P1Sequence;
+		}
+		if (lastTurn){
+			gameState = MutliplayerGameOver;
+		}
 	}
 	}
 
@@ -266,14 +271,30 @@ void ofApp::draw(){
 	if (gameState == P1Sequence || gameState == P1Input || gameState == P2Sequence || gameState == P2Input){
 		myfont.drawString("Player 1 score: " + ofToString(player1Score), 60, 100);
 		myfont.drawString("Player 2 score: " + ofToString(player2Score), 60, 150);
-		myfont.drawString("Multiplayer Mode" , 30 , 725);
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
 		myfont.drawString("Player 1's turn", 750, 100);
+		myfont.drawString("Multiplayer Mode" , 30 , 725);
+
 	}
 	if (gameState == P2Input || gameState == P2Sequence){
 		myfont.drawString("Player 2's turn", 750, 100);
-	}	
+		myfont.drawString("Multiplayer Mode" , 30 , 725);
+
+	}
+	if (gameState == MutliplayerGameOver) {
+		myfont.drawString("Player 1 score: " + ofToString(player1Score), 30, 40);
+		myfont.drawString("Player 2 score: " + ofToString(player2Score), 30, 90);
+		if (player1Score > player2Score){
+			mybigfont.drawString("Player 1 Wins",(ofGetWindowWidth()/2)-75, (ofGetWindowHeight()/2)-300);
+		}
+		if (player1Score < player2Score){
+			mybigfont.drawString("Player 2 Wins",(ofGetWindowWidth()/2)-75, (ofGetWindowHeight()/2)-300);
+		}	
+		if(player1Score == player2Score) {
+			mybigfont.drawString("It's a Tie!",(ofGetWindowWidth()/2)-80, (ofGetWindowHeight()/2)-150);			
+		}	
+	}
 }
 //--------------------------------------------------------------
 void ofApp::MultiplayerReset(){
@@ -292,6 +313,8 @@ void ofApp::MultiplayerReset(){
 	currentplayer = 1;
 
 	multiplayerGenerateSequence();
+
+	lastTurn = false;
 
 	userIndex = 0;
 	gameState = P1Sequence;
@@ -679,7 +702,21 @@ void ofApp::mousePressed(int x, int y, int button){
 			//If not, then we will terminate the game by 
 			//putting it in the GameOver state.
 			else{
+			if( gameState == P1Input){
+			currentplayer = 2;
+			multiplayerGenerateSequence();
+			userIndex = 0;
+			showingSequenceDuration = 0;
+
+			Paused = true;
+			Pausetimer = 240;
+			lastTurn = true;		
+
+			gameState = P2Sequence;
+			}
+			if (gameState == P2Input){
 				gameState = MutliplayerGameOver;
+				}
 			}
 	}
 }

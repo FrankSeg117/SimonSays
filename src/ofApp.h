@@ -114,6 +114,8 @@ class ofApp : public ofBaseApp{
 
 		string text;
 		ofTrueTypeFont myfont;
+		ofTrueTypeFont mybigfont;
+
 
 		int p1sequencelimit = 1;
 		int p2sequencelimit = 1;
@@ -122,4 +124,6 @@ class ofApp : public ofBaseApp{
 
 		int player1Score = 0;
 		int player2Score = 0;
+
+		bool lastTurn = false;
 };
