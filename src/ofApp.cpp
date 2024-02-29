@@ -74,7 +74,7 @@ void ofApp::update(){
 			gameState = PlayingSequence;
 		}
 	}
-	else if (gameState == P1Input || gameState == P2Input){
+	if (gameState == P1Input || gameState == P2Input){
 		RedButton->tick();
 		BlueButton->tick();
 		YellowButton->tick();
@@ -168,7 +168,7 @@ void ofApp::draw(){
 			gameState = PlayerInput;
 		}
 	}
-	else if (gameState == P1Sequence || gameState == P2Sequence){
+	if (gameState == P1Sequence || gameState == P2Sequence){
 		showingSequenceDuration++;
 		if(showingSequenceDuration == 120){
 			if( gameState == P1Sequence){
@@ -186,10 +186,15 @@ void ofApp::draw(){
 			showingSequenceDuration = 60;
 			userIndex++;
 		}
-		if(userIndex == sequenceLimit){
+		if(userIndex == p1sequencelimit || userIndex == p2sequencelimit){
 			lightOff(color);
 			userIndex = 0;
+		if (gameState == P1Sequence){
 			gameState = P1Input;
+			}
+		if (gameState == P2Sequence){
+			gameState = P2Input;
+			}
 		}
 	}
 
@@ -389,7 +394,9 @@ bool ofApp::checkUserInput(Buttons input) {
 
     // If none of the conditions are met, you should decide what to do.
     // In this case, returning false might be appropriate since it's a mismatch.
-    return false;
+	else {
+    return false;}
+
 }
 
 //--------------------------------------------------------------
@@ -520,7 +527,6 @@ void ofApp::mousePressed(int x, int y, int button){
 		}
 		if (color == YELLOW){
 			MultiplayerReset();
-			gameState = P1Sequence;
 		}
 	}
 		if(!idle && gameState == Recording){
