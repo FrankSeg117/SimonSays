@@ -35,7 +35,7 @@ void ofApp::setup(){
 	backgroundMusic.play();
 
 	//Text string for multiplayer
-	myfont.load("Scary.ttf", 32);
+	myfont.load("AovelSansRounded-rdDL.ttf", 32);
 	// text = "Points:";
 
 	//Initial State
@@ -99,7 +99,7 @@ void ofApp::update(){
 
 			Paused = true;
 			Pausetimer = 60;
-			
+
 			gameState = P1Sequence;
 	}
 	}
@@ -267,10 +267,10 @@ void ofApp::draw(){
 		myfont.drawString("Points: ",60,100);
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
-		myfont.drawString("Player 1 turn",300,100);
+		myfont.drawString("Player 1 turn",ofGetWindowWidth()/2,100);
 	}
 	if (gameState == P2Input || gameState == P2Sequence){
-		myfont.drawString("Player 2 turn",300,100);
+		myfont.drawString("Player 2 turn",ofGetWindowWidth()/2,100);
 	}	
 }
 //--------------------------------------------------------------
