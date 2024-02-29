@@ -119,4 +119,7 @@ class ofApp : public ofBaseApp{
 		int p2sequencelimit = 1;
 
 		int currentplayer = 1;
+
+		int player1Score = 0;
+		int player2Score = 0;
 };

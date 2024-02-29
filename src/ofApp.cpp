@@ -264,7 +264,8 @@ void ofApp::draw(){
 
 	//Draw string text for multiplayer
 	if (gameState == P1Sequence || gameState == P1Input || gameState == P2Sequence || gameState == P2Input){
-		myfont.drawString("Points: ",60,100);
+		myfont.drawString("Player 1 score: " + ofToString(player1Score), 60, 100);
+		myfont.drawString("Player 2 score: " + ofToString(player2Score), 60, 150);
 	}
 	if (gameState == P1Input || gameState == P1Sequence){
 		myfont.drawString("Player 1 turn",ofGetWindowWidth()/2,100);
@@ -283,6 +284,9 @@ void ofApp::MultiplayerReset(){
 
 	Player1Sequence.clear();
 	Player2Sequence.clear();
+
+	player1Score = 0;
+	player2Score = 0;
 
 	currentplayer = 1;
 
@@ -397,6 +401,7 @@ bool ofApp::checkUserInput(Buttons input) {
     // Here are verifiers for multiplayer to see if the current user input is correct
     if (gameState == P1Input) {
         if (Player1Sequence[userIndex] == input) {
+			player1Score++; // Adds one point to Player 1
             return true;
         } else {
             return false;
@@ -405,6 +410,7 @@ bool ofApp::checkUserInput(Buttons input) {
 
     if (gameState == P2Input) {
         if (Player2Sequence[userIndex] == input) {
+			player2Score++; // Adds one point to Player 2
             return true;
         } else {
             return false;
