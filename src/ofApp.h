@@ -47,7 +47,12 @@ class ofApp : public ofBaseApp{
 		//This vector will basically act as list of button enums
 		//for us to be able to store the sequences
 		vector<Buttons> Sequence;
+
+		//Vector for Replaying
 		vector<Buttons> Recorded;
+
+		vector<Buttons> Player1Sequence;
+		vector<Buttons> Player2Sequence;
 
 		//Let's declare the buttons we will use
 		Button *RedButton;

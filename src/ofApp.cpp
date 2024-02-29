@@ -35,8 +35,8 @@ void ofApp::setup(){
 	backgroundMusic.play();
 
 	//Text string for multiplayer
-	myfont.load("Scary.ttf", 32);
-	text = "Points:";
+	myfont.load("Striker.ttf", 32);
+	// text = "Points:";
 
 	//Initial State
 	gameState = StartUp;
@@ -203,7 +203,7 @@ void ofApp::draw(){
 
 	//Draw string text for multiplayer
 	if (gameState == Multiplayer){
-		myfont.drawString(text,100,100);
+		myfont.drawString("Points: 10 ",100,100);
 	}
 }
 //--------------------------------------------------------------
