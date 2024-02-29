@@ -262,16 +262,16 @@ void ofApp::draw(){
 	}
 	if(gameState == Recording){
 		recordingIndicator.draw(-288,-300,1024,768);
-		myfont.drawString("Rec'N Play" , 30 , 725);
+		myfont.drawString("Rec&Play" , 30 , 725);
 
 	}
 	if(gameState == PlayRecording){
 		playingIndicator.draw(-288,-300,1024,768);
-		myfont.drawString("Rec'N Play" , 30 , 725);
+		myfont.drawString("Rec&Play" , 30 , 725);
 		
 	}
 	if( gameState == RecnPlaymode){
-		myfont.drawString("Rec'N Play" , 30 , 725);
+		myfont.drawString("Rec&Play" , 30 , 725);
 	}
 
 	//Draw string text for multiplayer

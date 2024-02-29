@@ -7,7 +7,10 @@ class ofApp : public ofBaseApp{
 
 	//enums to represent game states
 	enum GameState{
-		StartUp,
+
+		StartUp, //Startup :)
+
+		//Original gamestates
 		PlayingSequence,
 		GameModeSelection,
 		PlayerInput,
