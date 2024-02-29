@@ -186,16 +186,19 @@ void ofApp::draw(){
 			showingSequenceDuration = 60;
 			userIndex++;
 		}
-		if(userIndex == p1sequencelimit || userIndex == p2sequencelimit){
+			
+		if (gameState == P1Sequence && userIndex == p1sequencelimit){
 			lightOff(color);
-			userIndex = 0;
-		if (gameState == P1Sequence){
+			userIndex = 0;			
 			gameState = P1Input;
 			}
-		if (gameState == P2Sequence){
+
+		if (gameState == P2Sequence && userIndex == p2sequencelimit){
+			lightOff(color);
+			userIndex = 0;			
 			gameState = P2Input;
 			}
-		}
+	
 	}
 
 	
