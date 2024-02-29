@@ -83,13 +83,23 @@ void ofApp::update(){
 		if (gameState == P1Input && userIndex == p1sequencelimit){
 			currentplayer = 2;
 			multiplayerGenerateSequence();
+			userIndex = 0;
 			showingSequenceDuration = 0;
+
+			Paused = true;
+			Pausetimer = 60;
+
 			gameState = P2Sequence;
 		}
 		else if (gameState == P2Input && userIndex == p2sequencelimit){
 			currentplayer = 1;
 			multiplayerGenerateSequence();
+			userIndex = 0;
 			showingSequenceDuration = 0;
+
+			Paused = true;
+			Pausetimer = 60;
+			
 			gameState = P1Sequence;
 	}
 	}
@@ -174,7 +184,7 @@ void ofApp::draw(){
 			if( gameState == P1Sequence){
 			color = Player1Sequence[userIndex];
 			}
-			else if (gameState == P2Sequence){
+			if (gameState == P2Sequence){
 			color = Player2Sequence[userIndex];
 			}
 			lightOn(color);
@@ -254,8 +264,14 @@ void ofApp::draw(){
 
 	//Draw string text for multiplayer
 	if (gameState == P1Sequence || gameState == P1Input || gameState == P2Sequence || gameState == P2Input){
-		myfont.drawString("Points: ",100,100);
+		myfont.drawString("Points: ",60,100);
 	}
+	if (gameState == P1Input || gameState == P1Sequence){
+		myfont.drawString("Player 1 turn",300,100);
+	}
+	if (gameState == P2Input || gameState == P2Sequence){
+		myfont.drawString("Player 2 turn",300,100);
+	}	
 }
 //--------------------------------------------------------------
 void ofApp::MultiplayerReset(){
