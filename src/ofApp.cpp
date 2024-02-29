@@ -319,7 +319,7 @@ void ofApp::multiplayerGenerateSequence(){
 		Player2Sequence.push_back(BLUE);
 		}
 	}
-	else if(random == 3){
+	else if(random == 2){
 		if (currentplayer == 1 ){
 		Player1Sequence.push_back(GREEN);
 		}
@@ -327,7 +327,7 @@ void ofApp::multiplayerGenerateSequence(){
 		Player2Sequence.push_back(GREEN);
 		}
 	}	
-	else if(random == 4){
+	else if(random == 3){
 		if (currentplayer == 1 ){
 		Player1Sequence.push_back(YELLOW);
 		}
