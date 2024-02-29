@@ -92,4 +92,6 @@ class ofApp : public ofBaseApp{
 		bool Paused = true;
 		int Playbackpos = 1;
 		int recordedLimit = 1;
+		string text;
+		ofTrueTypeFont myfont;
 };

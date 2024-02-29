@@ -34,6 +34,10 @@ void ofApp::setup(){
 	backgroundMusic.setLoop(true);
 	backgroundMusic.play();
 
+	//Text string for multiplayer
+	myfont.load("Scary.ttf", 32);
+	text = "Points:";
+
 	//Initial State
 	gameState = StartUp;
 }
@@ -54,7 +58,7 @@ void ofApp::update(){
 	}
 	//We will tick the buttons, aka constantly update them
 	//while expecting input from the user to see if anything changed
-	if(gameState == PlayerInput){
+	if(gameState == PlayerInput || gameState == Multiplayer){
 		RedButton->tick();
 		BlueButton->tick();
 		YellowButton->tick();
@@ -195,6 +199,11 @@ void ofApp::draw(){
 	}
 	if(gameState == PlayRecording){
 		playingIndicator.draw(-288,-300,1024,768);
+	}
+
+	//Draw string text for multiplayer
+	if (gameState == Multiplayer){
+		myfont.drawString(text,100,100);
 	}
 }
 //--------------------------------------------------------------
