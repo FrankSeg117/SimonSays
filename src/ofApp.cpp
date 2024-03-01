@@ -37,7 +37,6 @@ void ofApp::setup(){
 	//Text string for multiplayer
 	myfont.load("AovelSansRounded-rdDL.ttf", 32);
 	mybigfont.load("AovelSansRounded-rdDL.ttf", 60);
-	// text = "Points:";
 
 	//Initial State
 	gameState = StartUp;
@@ -75,7 +74,7 @@ void ofApp::update(){
 			gameState = PlayingSequence;
 		}
 	}
-	if (gameState == P1Input || gameState == P2Input){
+	if (gameState == P1Input || gameState == P2Input){ //tick the buttons in multiplayer
 		RedButton->tick();
 		BlueButton->tick();
 		YellowButton->tick();
@@ -97,7 +96,7 @@ void ofApp::update(){
 		if (!lastTurn){
 			gameState = P1Sequence;
 		}
-		if (lastTurn){
+		if (lastTurn){ //if previous turn player 1 missed, player 2 gets a chance to try and the game ends here
 			gameState = MutliplayerGameOver;
 		}
 	}
@@ -114,7 +113,7 @@ void ofApp::update(){
 			lightOff(GREEN);
 		}
 	}
-	if (Pausetimer > 0){
+	if (Pausetimer > 0){ //Little pause timer to space some actions by a specified amount of ticks
 		Pausetimer--;
 		if (Pausetimer <= 0 ){
 			Paused = false;
@@ -177,6 +176,7 @@ void ofApp::draw(){
 			gameState = PlayerInput;
 		}
 	}
+	//Sequences for multiplayer, but it will only show the sequence of the current player
 	if (gameState == P1Sequence || gameState == P2Sequence){
 		showingSequenceDuration++;
 		if(showingSequenceDuration == 120){
@@ -195,7 +195,7 @@ void ofApp::draw(){
 			showingSequenceDuration = 60;
 			userIndex++;
 		}
-			
+		//Once finished, it will take the input of the corresponding player	
 		if (gameState == P1Sequence && userIndex == p1sequencelimit){
 			lightOff(color);
 			userIndex = 0;			
@@ -319,6 +319,8 @@ void ofApp::draw(){
 	}
 }
 //--------------------------------------------------------------
+
+//This function will reset the multiplayer mode 
 void ofApp::MultiplayerReset(){
 
 	lightOff(RED);
@@ -371,7 +373,7 @@ void ofApp::multiplayerGenerateSequence(){
 	//This function will generate a random number between 0 and 3 (0,1,2,3)
 	int random = ofRandom(4);
 	
-	//Depending on the random number, we will add a button to the sequence
+	//Depending on the random number and current player, we will add a button to the required sequence
 	if(random == 0){
 		if (currentplayer == 1 ){
 		Player1Sequence.push_back(RED);
@@ -570,7 +572,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 	// If we are not in idle and want to select a new gamemode
-	//We select one of the buttons the give a new gamemode
+	//We select one of the buttons the enter a new gamemode
 	if ((!idle && gameState == GameModeSelection)) {
 		//We mark the pressed button as "pressed"
 		RedButton->setPressed(x,y);
@@ -589,7 +591,7 @@ void ofApp::mousePressed(int x, int y, int button){
 		}
 		//Light up the pressed button for a few ticks
 		lightOn(color);
-		lightDisplayDuration = 60;
+		lightDisplayDuration = 60;	//depending on the mode selected button will not light up to avoid confusion
 		if (color == GREEN) {
 			GameReset();
 		}

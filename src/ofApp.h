@@ -110,9 +110,9 @@ class ofApp : public ofBaseApp{
 		bool idle = true;
 		
 		//Added Variables
-		int Pausetimer = -1;
+		int Pausetimer = -1; //Timer variables (similar to idle) to have pauses for a specified amount of ticks
 		bool Paused = true;
-		int Playbackpos = 1;
+		int Playbackpos = 1;//Variable for the playback of the recording vector
 		int recordedLimit = 1;
 
 		string text;
@@ -123,10 +123,12 @@ class ofApp : public ofBaseApp{
 		int p1sequencelimit = 1;
 		int p2sequencelimit = 1;
 
+		//This variable tells which player is going to go now so the generate sequence method generates a new button for that player
 		int currentplayer = 1;
 
+		//Variables to store player scores
 		int player1Score = 0;
 		int player2Score = 0;
 
-		bool lastTurn = false;
+		bool lastTurn = false; //Variable to give player 2 a chance to win if player 1 misses (so they each had the same amount of turns)
 };
