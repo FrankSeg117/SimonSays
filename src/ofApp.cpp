@@ -311,6 +311,12 @@ void ofApp::draw(){
 			mybigfont.drawString("It's a Tie!",(ofGetWindowWidth()/2)-80, (ofGetWindowHeight()/2)-300);			
 		}	
 	}
+
+	//If player 1 failed, player 2 has a final chance to beat player 1's score
+	if (lastTurn && (gameState == P2Input || gameState == P2Sequence)){
+
+		myfont.drawString("Final Turn!" ,(ofGetWindowWidth()/2)-75, (ofGetWindowHeight()/2)-300); 
+	}
 }
 //--------------------------------------------------------------
 void ofApp::MultiplayerReset(){
