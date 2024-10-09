@@ -11,19 +11,7 @@ found in ".vscode/". In "launch.json" change the "program" attribute for the cor
 to reflect the path to your executable. The executable will have the same name as this repository, and if on Windows, it 
 will end in ".exe"
 
-## Submitting Assignment
-To submit this assignment, create a Release with the branch that holds all the changes you have added. If no Release is made, the last commit to the master branch will be graded.
-
-Don't forget that you must also fill out an evaluation form in Moodle to consider the project submitted.
-
-## Grading
-
+## Team
 Partner 1: (802-21-6247) (Frank A. Seguí) (frank.segui1@upr.edu)
 Partner 2: (802-21-3328) (Diego A. Otero) (diego.otero2@upr.edu)
 
-Any project that doesn't compile will receive a 0.
-
-If a partner has no commits in the repositories, they'll will receive a 0.
-
-## Student Notes
-If you have any notes to add for your TA about the project specs or creative additions, you may do so in this section of the README
